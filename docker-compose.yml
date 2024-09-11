@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  openldap:
+    image: bitnami/openldap:latest
+    container_name: openldap
+    environment:
+      - TZ=Asia/Bangkok
+      - LDAP_ADMIN_USERNAME=admin
+      - LDAP_ADMIN_PASSWORD=adminpassword
+      - LDAP_ROOT=dc=wny,dc=ac,dc=th
+      - LDAP_ADMIN_DN=cn=admin,dc=wny,dc=ac,dc=th
+      - LDAP_CONFIG_ADMIN_ENABLED=yes
+      - LDAP_PORT_NUMBER=389
+    ports:
+      - "389:1389"
+      - "636:1636"
+    volumes:
+      - openldap_data:/bitnami/openldap
+    networks:
+      - openldap-network
+      
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin
+    environment:
+      - TZ=Asia/Bangkok
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap
+      #- PHPLDAPADMIN_HTTPS=false
+      - LDAP_ENABLE_TLS=no
+    volumes:
+      - phpldapadmin_data:/var/www/phpldapadmin
+    ports:
+      - "10443:443"   # Port for accessing phpLDAPadmin
+    depends_on:
+      - openldap
+    networks:
+      - openldap-network
+      
+networks:
+  openldap-network:
+volumes:
+  openldap_data:
+    driver: local
+  phpldapadmin_data:
+    driver: local
