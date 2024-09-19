@@ -6,13 +6,15 @@ services:
     container_name: openldap
     environment:
       - TZ=Asia/Bangkok
-      - LDAP_ADMIN_USERNAME=admin
-      - LDAP_ADMIN_PASSWORD=adminpassword
-      - LDAP_ROOT=dc=wny,dc=ac,dc=th
-      - LDAP_ADMIN_DN=cn=admin,dc=wny,dc=ac,dc=th
+      - LDAP_ADMIN_USERNAME=${LDAP_ADMIN_USERNAME}
+      - LDAP_ADMIN_PASSWORD=${LDAP_ADMIN_PASSWORD}
       - LDAP_CONFIG_ADMIN_ENABLED=yes
-      - LDAP_PORT_NUMBER=389
-      - LDAP_ENABLE_TLS=no
+      - LDAP_CONFIG_ADMIN_USERNAME=${LDAP_ADMIN_USERNAME}
+      - LDAP_CONFIG_ADMIN_PASSWORD=${LDAP_ADMIN_PASSWORD}
+      - LDAP_ROOT=${LDAP_ROOT}
+      - LDAP_ADMIN_DN=${LDAP_ADMIN_DN}
+      - LDAP_PORT_NUMBER=${LDAP_PORT_NUMBER}
+      - LDAP_ENABLE_TLS=${LDAP_ENABLE_TLS}
       #- LDAP_TLS_CERT_FILE=/opt/bitnami/openldap/certs/public.crt
       #- LDAP_TLS_KEY_FILE=/opt/bitnami/openldap/certs/private.key
       #- LDAP_TLS_CA_FILE=/opt/bitnami/openldap/certs/ca.crt
@@ -32,7 +34,7 @@ services:
       - TZ=Asia/Bangkok
       - PHPLDAPADMIN_LDAP_HOSTS=openldap
       #- PHPLDAPADMIN_HTTPS=false
-      - LDAP_ENABLE_TLS=no
+      - LDAP_ENABLE_TLS=${LDAP_ENABLE_TLS}
     volumes:
       - phpldapadmin_data:/var/www/phpldapadmin
     ports:
