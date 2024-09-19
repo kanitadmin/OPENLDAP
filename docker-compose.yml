@@ -12,6 +12,11 @@ services:
       - LDAP_ADMIN_DN=cn=admin,dc=wny,dc=ac,dc=th
       - LDAP_CONFIG_ADMIN_ENABLED=yes
       - LDAP_PORT_NUMBER=389
+      #- LDAP_ENABLE_TLS=yes
+      #- LDAP_TLS_CERT_FILE=/opt/bitnami/openldap/certs/public.crt
+      #- LDAP_TLS_KEY_FILE=/opt/bitnami/openldap/certs/private.key
+      #- LDAP_TLS_CA_FILE=/opt/bitnami/openldap/certs/ca.crt
+      #- LDAP_TLS_DH_PARAMS_FILE=/opt/bitnami/openldap/certs/dhparams.pem
     ports:
       - "389:1389"
       - "636:1636"
